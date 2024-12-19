@@ -21,7 +21,7 @@ ___
 
 # Запуск проекта
 ### 1. **установите [Golang](https://go.dev/dl/)**
-### 2. **сохраните [проект](https://github.com/nastts/Calculate/archive/refs/heads/main.zip)**
+### 2. **сохраните [проект](https://github.com/nastts/calculate/archive/refs/heads/main.zip)**
 ### 3. **откройте терминал и пропишите команду для запуска сервера**
 ```powershell
 go run ./cmd/main.go
