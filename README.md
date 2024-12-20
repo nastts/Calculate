@@ -72,7 +72,7 @@ Invoke-WebRequest -Method 'POST' -Uri 'http://localhost:8080/api/v1/calculate' -
 {"result":"6.00"}
 ```
 ___
-### 422❌ (StatusMethodNotAllowed)
+### 422❌ (StatusUnprocessableEntity)
 ```
 Invoke-WebRequest -Method 'POST' -Uri 'http://localhost:8080/api/v1/calculate' -ContentType 'application/json' -Body '{"expression":"2+2*"}' | Select-Object -Expand Content
 ```
