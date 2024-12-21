@@ -1,7 +1,6 @@
 # Калькулятор на HTTP сервере Golang
 
-данный проект может считать арифмитические выражения,переданные через HTTP-запрос, с использованием операций:
-___
+#### данный проект может считать арифмитические выражения,переданные через HTTP-запрос, с использованием операций:
 ### ➕ сложение
 ### ➖ вычитание
 ### ✖️ умножение
@@ -12,13 +11,21 @@ ___
 > ### в данном калькуляторе работает приоритет операций:
 >  1. умножение(✖️) и деление(➗)
 >  2. сложение(➕) и вычитание(➖)
->[!TIP]
-> то, что находится в скобках, решается раньше того, что вне скобок.
-> в скобках приоритет операций такой же
 
-___
-> [!TIP]
->данный проект был написан в **VScode**, поэтому советую тестировать проект именно там, чтобы >не было проблем с запуском и отправкой запроса
+>[!TIP]
+> ### то, что находится в скобках, решается раньше того, что вне скобок. в скобках приоритет операций такой же
+
+> [!IMPORTANT]
+>### данный проект был написан на **Windows**, поэтому запуск проекта ниже написан для **Windows**
+
+>[!TIP]
+>### локальная **[ссылка](http://localhost:8080/api/v1/calculate)** сервера 
+
+>[!TIP]
+>### end-point сервера
+>/api/v1/calculate
+
+
 
 # Запуск проекта
 ### 1. **установите [Golang](https://go.dev/dl/)**
@@ -27,24 +34,22 @@ ___
 ```powershell
 go run ./cmd/main.go
 ```
-### 4. **после того, как вы получили сообщение:**
-```
+### 4. **если вы получили сообщение:**
+```Go
 2024/12/19 19:17:58 сервер запущен
 ```
-### **сервер запустился корректно**
+### **значит сервер запустился корректно**
 >[!IMPORTANT]
->после вы должны запустить новый терминал, чтобы отправить запрос на сервер
+>после того, как вы запустили сервер, создайте новый терминал, что отправить запрос
 ### 5. после того, как вы открыли новый терминал, вы должны прописать:
 ```
 Invoke-WebRequest -Method 'POST' -Uri 'http://localhost:8080/api/v1/calculate' -ContentType 'application/json' -Body '{"expression":"2+2*2"}' | Select-Object -Expand Content
 ```
 >[!TIP]
->это очень похожее на curl, но используется для VScode
+>это очень похожее на curl, но используется на **Windows**
 
 >[!IMPORTANT]
 >метод должен быть POST
-
-
 
 
 # Статусы сервера
@@ -73,7 +78,7 @@ Invoke-WebRequest -Method 'POST' -Uri 'http://localhost:8080/api/v1/calculate' -
 {"result":"6.00"}
 ```
 ___
-### 422❌ (StatusUnprocessableEntity)
+### 422❌ (StatusUnprocessableEntity) ошибка пользователя в написании выражения
 ```
 Invoke-WebRequest -Method 'POST' -Uri 'http://localhost:8080/api/v1/calculate' -ContentType 'application/json' -Body '{"expression":"2+2*"}' | Select-Object -Expand Content
 ```
@@ -87,20 +92,17 @@ Invoke-WebRequest : {"error":"expression is not valid"}
     + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
 ```
 ___
-### 405❌ (StatusMethodNotAllowed)
+### 405❌ (StatusMethodNotAllowed) не правильный метод
 ```
 Invoke-WebRequest -Method 'GET' -Uri 'http://localhost:8080/api/v1/calculate' -ContentType 'application/json' -Body '{"expression":"2+2*2"}' | Select-Object -Expand Content
 ```
 
 ### результат
 ```
-Invoke-WebRequest : {"error":"method not allowed"}
+Invoke-WebRequest : Невозможно отправить тело содержимого с данным типом предиката.
 строка:1 знак:1
 + Invoke-WebRequest -Method 'GET' -Uri 'http://localhost:8080/api/v1/ca ...
 + ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     + CategoryInfo          : NotSpecified: (:) [Invoke-WebRequest], ProtocolViolationException
     + FullyQualifiedErrorId : System.Net.ProtocolViolationException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
 ```
-
->[!TIP]
->### локальная **[ссылка](http://localhost:8080/api/v1/calculate)** сервера 
